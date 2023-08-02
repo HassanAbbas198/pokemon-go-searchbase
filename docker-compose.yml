@@ -12,6 +12,8 @@ services:
     env_file: .env
     environment:
       PORT: ${PORT}
+    depends_on:
+      - pokemon-db
 
   pokemon-db:
     image: mcr.microsoft.com/azure-sql-edge:latest
