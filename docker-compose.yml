@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  app:
+  pokemon-service:
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,3 +12,12 @@ services:
     env_file: .env
     environment:
       PORT: ${PORT}
+
+  pokemon-db:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    restart: always
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
