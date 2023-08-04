@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import config from './common/config';
 import { DatabaseModule } from './database/database.module';
-import { CharactersModule } from './characters/characters.module';
+import { PokemonModule } from './pokemon/pokemon.module';
 
 @Module({
   imports: [
@@ -13,7 +13,7 @@ import { CharactersModule } from './characters/characters.module';
       load: [config],
     }),
     DatabaseModule,
-    CharactersModule,
+    PokemonModule,
   ],
   controllers: [AppController],
   providers: [AppService],
