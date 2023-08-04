@@ -6,8 +6,8 @@ import { PokemonRepository } from './repositories';
 export class PokemonService {
   constructor(private readonly pokemonRepository: PokemonRepository) {}
 
-  create(data: CreatePokemonDto) {
-    return this.pokemonRepository.insert(data);
+  addPokemon(data: CreatePokemonDto) {
+    return this.pokemonRepository.createPokemon(data);
   }
 
   findAll() {

@@ -11,7 +11,7 @@ export class PokemonRepository {
     private pokemonRepository: Repository<Pokemon>,
   ) {}
 
-  async insert(data: CreatePokemonDto): Promise<Pokemon> {
+  async createPokemon(data: CreatePokemonDto): Promise<Pokemon> {
     const newPokemon = this.pokemonRepository.create(data);
 
     return this.pokemonRepository.save(newPokemon);
