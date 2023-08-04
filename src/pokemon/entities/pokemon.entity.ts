@@ -1,15 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Pokemon {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  name: string;
-
-  @Column()
+  @PrimaryColumn({ unique: true })
   pokedexNumber: number;
+
+  @Column({ unique: true })
+  name: string;
 
   @Column()
   imgName: string;
@@ -21,13 +18,13 @@ export class Pokemon {
   evolutionStage: number;
 
   @Column()
-  evolved: number;
+  evolved: boolean;
 
   @Column()
   familyID: number;
 
   @Column()
-  crossGen: number;
+  crossGen: boolean;
 
   @Column()
   type1: string;
@@ -54,37 +51,37 @@ export class Pokemon {
   sta: number;
 
   @Column()
-  legendary: number;
+  legendary: boolean;
 
   @Column()
-  acquireable: number;
+  acquireable: boolean;
 
   @Column()
-  spawns: number;
+  spawns: boolean;
 
   @Column()
-  regional: number;
+  regional: boolean;
 
   @Column()
-  raidable: number;
+  raidable: boolean;
 
   @Column()
   hatchable: number;
 
   @Column()
-  shiny: number;
+  shiny: boolean;
 
   @Column()
-  nest: number;
+  nest: boolean;
 
   @Column()
-  isNew: number;
+  isNew: boolean;
 
   @Column()
-  notGettable: number;
+  notGettable: boolean;
 
   @Column()
-  futureEvolve: number;
+  futureEvolve: boolean;
 
   @Column()
   cpAt40: number;
