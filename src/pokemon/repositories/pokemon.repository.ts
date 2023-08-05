@@ -17,12 +17,6 @@ export class PokemonRepository {
     await this.pokemonRepository.insert(newPokemon);
   }
 
-  async updatePokemon(id: number, data: UpdatePokemonDto): Promise<void> {
-    await this.getPokemonById(id);
-
-    await this.pokemonRepository.update({ pokedexNumber: id }, data);
-  }
-
   async getPokemonById(id: number): Promise<Pokemon> {
     const pokemon = await this.pokemonRepository.findOne({
       where: { pokedexNumber: id },
@@ -35,5 +29,17 @@ export class PokemonRepository {
     }
 
     return pokemon;
+  }
+
+  async updatePokemon(id: number, data: UpdatePokemonDto): Promise<void> {
+    await this.getPokemonById(id);
+
+    await this.pokemonRepository.update({ pokedexNumber: id }, data);
+  }
+
+  async deletePokemon(id: number): Promise<void> {
+    const pokemon = await this.getPokemonById(id);
+
+    await this.pokemonRepository.remove(pokemon);
   }
 }

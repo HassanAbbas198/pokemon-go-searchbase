@@ -7,7 +7,7 @@ import { Pokemon } from './entities';
 export class PokemonService {
   constructor(private readonly pokemonRepository: PokemonRepository) {}
 
-  addPokemon(data: CreatePokemonDto): Promise<void> {
+  async addPokemon(data: CreatePokemonDto): Promise<void> {
     return this.pokemonRepository.createPokemon(data);
   }
 
@@ -15,15 +15,15 @@ export class PokemonService {
     return `This action returns all pokemons`;
   }
 
-  getPokemonById(id: number): Promise<Pokemon> {
+  async getPokemonById(id: number): Promise<Pokemon> {
     return this.pokemonRepository.getPokemonById(id);
   }
 
-  updatePokemon(id: number, data: UpdatePokemonDto): Promise<void> {
+  async updatePokemon(id: number, data: UpdatePokemonDto): Promise<void> {
     return this.pokemonRepository.updatePokemon(id, data);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pokemon`;
+  async deletePokemon(id: number): Promise<void> {
+    return this.pokemonRepository.deletePokemon(id);
   }
 }

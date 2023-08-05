@@ -17,7 +17,7 @@ export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 
   @Post()
-  addPokemon(@Body() pokemonData: CreatePokemonDto): Promise<void> {
+  async addPokemon(@Body() pokemonData: CreatePokemonDto): Promise<void> {
     return this.pokemonService.addPokemon(pokemonData);
   }
 
@@ -27,12 +27,14 @@ export class PokemonController {
   }
 
   @Get(':id')
-  getPokemonById(@Param('id', ParseIntPipe) id: number): Promise<Pokemon> {
+  async getPokemonById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<Pokemon> {
     return this.pokemonService.getPokemonById(id);
   }
 
   @Put(':id')
-  updatePokemon(
+  async updatePokemon(
     @Param('id', ParseIntPipe) id: number,
     @Body() pokemonData: UpdatePokemonDto,
   ): Promise<void> {
@@ -40,7 +42,7 @@ export class PokemonController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pokemonService.remove(+id);
+  async deletePokemon(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.pokemonService.deletePokemon(id);
   }
 }
