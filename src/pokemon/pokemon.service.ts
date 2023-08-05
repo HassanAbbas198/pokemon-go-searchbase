@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePokemonDto, UpdatePokemonDto } from './dto';
 import { PokemonRepository } from './repositories';
+import { Pokemon } from './entities';
 
 @Injectable()
 export class PokemonService {
   constructor(private readonly pokemonRepository: PokemonRepository) {}
 
-  addPokemon(data: CreatePokemonDto) {
+  addPokemon(data: CreatePokemonDto): Promise<void> {
     return this.pokemonRepository.createPokemon(data);
   }
 
@@ -14,11 +15,11 @@ export class PokemonService {
     return `This action returns all pokemons`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pokemon`;
+  getPokemonById(id: number): Promise<Pokemon> {
+    return this.pokemonRepository.getPokemonById(id);
   }
 
-  updatePokemon(id: number, data: UpdatePokemonDto) {
+  updatePokemon(id: number, data: UpdatePokemonDto): Promise<void> {
     return this.pokemonRepository.updatePokemon(id, data);
   }
 

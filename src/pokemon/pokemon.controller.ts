@@ -6,16 +6,18 @@ import {
   Put,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { CreatePokemonDto, UpdatePokemonDto } from './dto';
+import { Pokemon } from './entities';
 
 @Controller('pokemon')
 export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 
   @Post()
-  addPokemon(@Body() pokemonData: CreatePokemonDto) {
+  addPokemon(@Body() pokemonData: CreatePokemonDto): Promise<void> {
     return this.pokemonService.addPokemon(pokemonData);
   }
 
@@ -25,15 +27,15 @@ export class PokemonController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pokemonService.findOne(+id);
+  getPokemonById(@Param('id', ParseIntPipe) id: number): Promise<Pokemon> {
+    return this.pokemonService.getPokemonById(id);
   }
 
   @Put(':id')
   updatePokemon(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() pokemonData: UpdatePokemonDto,
-  ) {
+  ): Promise<void> {
     return this.pokemonService.updatePokemon(id, pokemonData);
   }
 

@@ -11,14 +11,22 @@ export class PokemonRepository {
     private pokemonRepository: Repository<Pokemon>,
   ) {}
 
-  async createPokemon(data: CreatePokemonDto): Promise<Pokemon> {
+  async createPokemon(data: CreatePokemonDto): Promise<void> {
     const newPokemon = this.pokemonRepository.create(data);
 
-    return this.pokemonRepository.save(newPokemon);
+    await this.pokemonRepository.insert(newPokemon);
   }
 
   async updatePokemon(id: number, data: UpdatePokemonDto): Promise<void> {
-    const pokemon = await this.getPokemonById(id);
+    await this.getPokemonById(id);
+
+    await this.pokemonRepository.update({ pokedexNumber: id }, data);
+  }
+
+  async getPokemonById(id: number): Promise<Pokemon> {
+    const pokemon = await this.pokemonRepository.findOne({
+      where: { pokedexNumber: id },
+    });
 
     if (!pokemon) {
       throw new NotFoundException(
@@ -26,10 +34,6 @@ export class PokemonRepository {
       );
     }
 
-    await this.pokemonRepository.update({ pokedexNumber: id }, data);
-  }
-
-  async getPokemonById(id: number): Promise<Pokemon> {
-    return this.pokemonRepository.findOne({ where: { pokedexNumber: id } });
+    return pokemon;
   }
 }
