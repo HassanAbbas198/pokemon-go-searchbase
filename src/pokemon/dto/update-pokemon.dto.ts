@@ -1,4 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { PartialType, OmitType } from '@nestjs/mapped-types';
 import { CreatePokemonDto } from './create-pokemon.dto';
 
-export class UpdatePokemonDto extends PartialType(CreatePokemonDto) {}
+export class UpdatePokemonDto extends PartialType(
+  OmitType(CreatePokemonDto, ['pokedexNumber'] as const),
+) {}

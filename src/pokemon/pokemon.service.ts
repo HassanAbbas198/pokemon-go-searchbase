@@ -18,8 +18,8 @@ export class PokemonService {
     return `This action returns a #${id} pokemon`;
   }
 
-  update(id: number, updatePokemonDto: UpdatePokemonDto) {
-    return `This action updates a #${id} pokemon`;
+  updatePokemon(id: number, data: UpdatePokemonDto) {
+    return this.pokemonRepository.updatePokemon(id, data);
   }
 
   remove(id: number) {
