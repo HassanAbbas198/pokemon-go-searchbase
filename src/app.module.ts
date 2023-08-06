@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import config from './common/config';
 import { DatabaseModule } from './database/database.module';
+import { PokemonModule } from './pokemon/pokemon.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { DatabaseModule } from './database/database.module';
       load: [config],
     }),
     DatabaseModule,
+    PokemonModule,
   ],
   controllers: [AppController],
   providers: [AppService],
