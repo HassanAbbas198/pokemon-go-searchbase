@@ -17,6 +17,27 @@ export class PokemonRepository {
     await this.pokemonRepository.insert(newPokemon);
   }
 
+  async getPokemon({ limit, skip, search, generation }) {
+    const queryBuilder = this.pokemonRepository.createQueryBuilder('pokemon');
+
+    if (search) {
+      queryBuilder.where('pokemon.name LIKE :search', {
+        search: `%${search}%`,
+      });
+    }
+
+    if (generation) {
+      queryBuilder.andWhere('pokemon.generation = :generation', { generation });
+    }
+
+    const [pokemon, total] = await queryBuilder
+      .take(limit)
+      .skip(skip)
+      .getManyAndCount();
+
+    return { pokemon, total };
+  }
+
   async getPokemonById(id: number): Promise<Pokemon> {
     const pokemon = await this.pokemonRepository.findOne({
       where: { pokedexNumber: id },

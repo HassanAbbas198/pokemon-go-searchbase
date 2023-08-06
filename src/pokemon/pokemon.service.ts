@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePokemonDto, UpdatePokemonDto } from './dto';
+import {
+  CreatePokemonDto,
+  GetPokemonFiltersDto,
+  GetPokemonQueryDto,
+  UpdatePokemonDto,
+} from './dto';
 import { PokemonRepository } from './repositories';
 import { Pokemon } from './entities';
 
@@ -11,8 +16,26 @@ export class PokemonService {
     return this.pokemonRepository.createPokemon(data);
   }
 
-  findAll() {
-    return `This action returns all pokemons`;
+  async getPokemon(query: GetPokemonQueryDto) {
+    const { page, limit, search, generation } = query;
+    const skip = (page - 1) * limit;
+
+    const filters: GetPokemonFiltersDto = {
+      skip,
+      limit,
+      search,
+      generation,
+    };
+
+    const result = await this.pokemonRepository.getPokemon(filters);
+
+    return {
+      data: result.pokemon,
+      currentPage: page,
+      limit,
+      totalRecords: result.total,
+      totalPages: Math.ceil(result.total / limit),
+    };
   }
 
   async getPokemonById(id: number): Promise<Pokemon> {

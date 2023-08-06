@@ -7,9 +7,10 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
-import { CreatePokemonDto, UpdatePokemonDto } from './dto';
+import { CreatePokemonDto, GetPokemonQueryDto, UpdatePokemonDto } from './dto';
 import { Pokemon } from './entities';
 
 @Controller('pokemon')
@@ -22,8 +23,8 @@ export class PokemonController {
   }
 
   @Get()
-  findAll() {
-    return this.pokemonService.findAll();
+  async getPokemon(@Query() query: GetPokemonQueryDto) {
+    return this.pokemonService.getPokemon(query);
   }
 
   @Get(':id')
