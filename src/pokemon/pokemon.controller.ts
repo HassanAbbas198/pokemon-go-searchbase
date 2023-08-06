@@ -12,6 +12,7 @@ import {
 import { PokemonService } from './pokemon.service';
 import { CreatePokemonDto, GetPokemonQueryDto, UpdatePokemonDto } from './dto';
 import { Pokemon } from './entities';
+import { PaginationResponse } from '../common/types';
 
 @Controller('pokemon')
 export class PokemonController {
@@ -23,7 +24,9 @@ export class PokemonController {
   }
 
   @Get()
-  async getPokemon(@Query() query: GetPokemonQueryDto) {
+  async getPokemon(
+    @Query() query: GetPokemonQueryDto,
+  ): Promise<PaginationResponse<Pokemon>> {
     return this.pokemonService.getPokemon(query);
   }
 

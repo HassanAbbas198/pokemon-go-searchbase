@@ -7,6 +7,8 @@ import {
 } from './dto';
 import { PokemonRepository } from './repositories';
 import { Pokemon } from './entities';
+import { formatPaginationResponse } from '../common/helpers';
+import { PaginationResponse } from '../common/types';
 
 @Injectable()
 export class PokemonService {
@@ -16,7 +18,9 @@ export class PokemonService {
     return this.pokemonRepository.createPokemon(data);
   }
 
-  async getPokemon(query: GetPokemonQueryDto) {
+  async getPokemon(
+    query: GetPokemonQueryDto,
+  ): Promise<PaginationResponse<Pokemon>> {
     const { page, limit, search, generation } = query;
     const skip = (page - 1) * limit;
 
@@ -29,13 +33,7 @@ export class PokemonService {
 
     const result = await this.pokemonRepository.getPokemon(filters);
 
-    return {
-      data: result.pokemon,
-      currentPage: page,
-      limit,
-      totalRecords: result.total,
-      totalPages: Math.ceil(result.total / limit),
-    };
+    return formatPaginationResponse(result.pokemon, result.total, page, limit);
   }
 
   async getPokemonById(id: number): Promise<Pokemon> {
