@@ -1,7 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/helpers';
+import { LoggingInterceptor } from './common/interceptors';
 
 const logger = new Logger('Boostrap server');
 
@@ -17,6 +19,9 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
+
+  const configService = app.get(ConfigService);
+  app.useGlobalInterceptors(new LoggingInterceptor(logger, configService));
 
   await app.listen(process.env.PORT);
 
