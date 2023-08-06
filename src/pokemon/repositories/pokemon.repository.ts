@@ -45,7 +45,7 @@ export class PokemonRepository {
 
     if (!pokemon) {
       throw new NotFoundException(
-        `Pokemon with Pokedex Number:${id} not found`,
+        `Pokemon with Pokedex Number: ${id} not found`,
       );
     }
 

@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/helpers';
 import { LoggingInterceptor } from './common/interceptors';
@@ -22,6 +23,13 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   app.useGlobalInterceptors(new LoggingInterceptor(logger, configService));
+
+  const config = new DocumentBuilder()
+    .setTitle('Pokemon API')
+    .setDescription('API documentation for Pokemon CRUD operations')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(process.env.PORT);
 
