@@ -1,0 +1,20 @@
+{
+    "verbose": true,
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.(t|j)s"
+    ],
+    "resetMocks": true,
+    "clearMocks": true,
+    "testTimeout": 15000,
+    "maxWorkers": 1
+}
