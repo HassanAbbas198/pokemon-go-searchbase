@@ -12,7 +12,7 @@ export class Pokemon {
   name: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   imgName: string;
 
   @ApiProperty()
@@ -20,19 +20,19 @@ export class Pokemon {
   generation: number;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   evolutionStage: number;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   evolved: boolean;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   familyID: number;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   crossGen: boolean;
 
   @ApiProperty()
@@ -44,15 +44,15 @@ export class Pokemon {
   type2: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   weather1: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   weather2: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   statTotal: number;
 
   @ApiProperty()
@@ -80,7 +80,7 @@ export class Pokemon {
   spawns: boolean;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   regional: boolean;
 
   @ApiProperty()
@@ -96,26 +96,26 @@ export class Pokemon {
   shiny: boolean;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   nest: boolean;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   isNew: boolean;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   notGettable: boolean;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   futureEvolve: boolean;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   cpAt40: number;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   cpAt39: number;
 }
