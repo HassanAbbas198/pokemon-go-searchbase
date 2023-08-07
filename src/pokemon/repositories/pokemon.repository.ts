@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pokemon } from '../entities';
@@ -12,6 +16,15 @@ export class PokemonRepository {
   ) {}
 
   async createPokemon(data: CreatePokemonDto): Promise<void> {
+    const { pokedexNumber, name } = data;
+    const isDuplicate = await this.checkDuplicate(pokedexNumber, name);
+
+    if (isDuplicate) {
+      throw new BadRequestException(
+        'A pokemon with the same Pokedex number or name already exists',
+      );
+    }
+
     const newPokemon = this.pokemonRepository.create(data);
 
     await this.pokemonRepository.insert(newPokemon);
@@ -62,5 +75,12 @@ export class PokemonRepository {
     const pokemon = await this.getPokemonById(id);
 
     await this.pokemonRepository.remove(pokemon);
+  }
+
+  async checkDuplicate(id: number, name: string): Promise<boolean> {
+    const existingPokemon = await this.pokemonRepository.findOne({
+      where: [{ pokedexNumber: id }, { name }],
+    });
+    return !!existingPokemon;
   }
 }
