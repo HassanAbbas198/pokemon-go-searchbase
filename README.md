@@ -87,9 +87,6 @@ Here are some of the sample API endpoints provided by the application:
 - `PUT /pokemon/:id:` Update data for a specific Pokemon.
 - `DELETE /pokemon/:id:` Delete a Pokemon record.
 
-For easy testing and interaction with the API endpoints, you can import the [Postman collection](https://api.postman.com/collections/15081635-9db6e639-7b98-4cda-a49c-a148b5902fa3?access_key=PMAT-01H7BMFQ11V7BK55D93GSXSR9K) provded.
-
-
 For detailed API documentation and examples, refer to the [Swagger API Documentation](http://localhost:8080/api-docs) after successfully running the app.
 
 ## Testing
