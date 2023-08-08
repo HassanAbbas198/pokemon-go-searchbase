@@ -9,9 +9,14 @@ services:
     command: bash -c "yarn dev"
     ports:
       - "${PORT}:${PORT}"
+    # Load environment variables from the specified file
     env_file: .env
+    # Set the PORT environment variable for the application
     environment:
       PORT: ${PORT}
+    # Mount the current directory to the docker container /app
+    volumes:
+      - .:/app
     depends_on:
       - pokemon-db
 
