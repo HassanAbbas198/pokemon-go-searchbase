@@ -1,0 +1,45 @@
+{
+    "verbose": true,
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.(t|j)s"
+    ],
+    "resetMocks": true,
+    "clearMocks": true,
+    "testTimeout": 15000,
+    "maxWorkers": 1,
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "./dist",
+      "./node_modules",
+      "./coverage",
+      "./test",
+      ".eslintrc.js",
+      "./*.module.ts",
+      "./index.ts",
+      "main.ts"
+    ],
+    "modulePathIgnorePatterns": [
+      "./dist",
+      "./coverage",
+      "./node_modules"
+    ],
+    "coverageDirectory": "./coverage",
+    "coverageThreshold": {
+      "global": {
+        "branches": 0,
+        "functions": 10 ,
+        "lines": 60,
+        "statements": 60
+      }
+    }
+}
