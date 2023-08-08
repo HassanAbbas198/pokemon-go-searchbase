@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Pokemon } from '../pokemon/entities';
 
 @Module({
   imports: [
@@ -15,9 +16,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           username: configService.get('database.user'),
           password: configService.get('database.password'),
           database: configService.get('database.name'),
+          entities: [Pokemon],
           options: {
             trustServerCertificate: true,
           },
+          autoLoadEntities: configService.get('database.autoLoadEntities'),
+          synchronize: configService.get('database.synchronize'),
         };
       },
     }),

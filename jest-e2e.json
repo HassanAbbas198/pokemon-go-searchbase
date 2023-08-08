@@ -1,0 +1,23 @@
+{
+  "verbose": true,
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "forceExit": true,
+  "testEnvironment": "node",
+  "collectCoverageFrom": [
+    "**/*.(t|j)s",
+    "src"
+  ],
+  "resetMocks": true,
+  "clearMocks": true,
+  "detectOpenHandles": true,
+  "testTimeout": 15000,
+  "maxWorkers": 1
+}
