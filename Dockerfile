@@ -13,6 +13,3 @@ RUN yarn
 
 # Copy the rest source code into app folder
 COPY . .
-
-# Start the NestJS application
-CMD ["node", "main.js"]
