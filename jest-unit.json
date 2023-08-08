@@ -16,5 +16,30 @@
     "resetMocks": true,
     "clearMocks": true,
     "testTimeout": 15000,
-    "maxWorkers": 1
+    "maxWorkers": 1,
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "./dist",
+      "./node_modules",
+      "./coverage",
+      "./test",
+      ".eslintrc.js",
+      "./*.module.ts",
+      "./index.ts",
+      "main.ts"
+    ],
+    "modulePathIgnorePatterns": [
+      "./dist",
+      "./coverage",
+      "./node_modules"
+    ],
+    "coverageDirectory": "./coverage",
+    "coverageThreshold": {
+      "global": {
+        "branches": 0,
+        "functions": 10 ,
+        "lines": 60,
+        "statements": 60
+      }
+    }
 }
