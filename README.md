@@ -1,73 +1,97 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Pokemon Go Searchbase CRUD Application
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project is a CRUD application developed for the purpose of simulating a Pokemon Go searchbase.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Table of Contents
 
-## Description
+- [Introduction](#introduction)
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+- [API Documentation](#api-documentation)
+- [Testing](#testing)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# Introduction
 
-## Installation
+In this project, I have developed a CRUD application to interact with Pokemon data. This application allows users to perform CRUD operations. It leverages technologies such as MSSQL for the database and Nest for the backend implementation.
 
-```bash
-$ yarn install
+# Prerequisites
+
+Make sure you have the following dependencies installed on your machine:
+
+- Docker: [Install Docker](https://docs.docker.com/get-docker/)
+- Docker Compose: [Install Docker Compose](https://docs.docker.com/compose/install/)
+
+# Setup
+
+Follow these steps to set up the project locally:
+
+1. **Clone the repository**:
+   ```sh
+    git clone https://github.com/HassanAbbas198/pokemon-go-searchbase.git
+    ```
+
+2. **Install dependencies**:
+   ```sh
+   cd pokemon-go-searchbase
+   
+   yarn
+   ```
+
+3. **Configure environment variables**:
+
+   Create an `.env` file at the root level of the project and add the following environment variables. Alternatively, you can copy them from the `.env.example` file
+
+
+    ```sh
+    # Set the port for the application
+    PORT=8080
+    
+    # Enable logging of request headers and data
+    LOG_HEADERS=true
+    LOG_REQUEST_DATA=true
+    
+    # Configure database connection
+    DB_HOST=pokemon-db
+    DB_PORT=1433
+    DB_USER=sa
+    DB_PASSWORD=
+    DB_NAME=pokemon_db
+    
+    # IMPORTANT: The following settings should NOT be enabled in a production environment
+    DB_AUTO_LOAD_ENTITIES=true
+    DB_SYNCHRONIZE=true
+    ```
+   Make sure **DB_PASSWORD**, and **DB_NAME** you set in the `.env` match the values in `scripts/init-db.sh` and `scripts/init-db.sql` files respectively.
+   
+4. **Initializing the Database**:
+
+    ```sh
+    yarn docker:init-db
+    ```
+    
+    > Note: This step is required only if you're setting up a local database. If your database is hosted remotely, you can proceed to the next step. 
+
+4. **Running the Application**:
+
+    ```sh
+    yarn docker:dev
+    ```
+
+## API Documentation
+
+Here are some of the sample API endpoints provided by the application:
+
+- `GET /pokemon`: Retrieve a list of paginated Pokemon records.
+- `GET /pokemon/:id`: Retrieve a list of all Pokemon records.
+- `POST /pokemon` Create a new Pokemon record to the database.
+- `PUT /pokemon/:id:` Update data for a specific Pokemon.
+- `DELETE /pokemon/:id:` Delete a Pokemon record.
+
+For detailed API documentation and examples, refer to the [Swagger API Documentation](http://localhost:8080/api-docs) after successfully running the app.
+
+## Testing
+To run unit tests, execute:
+
 ```
-
-## Running the app
-
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+yarn test
 ```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
