@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PokemonService } from '../../src/pokemon/pokemon.service';
 import { PokemonController } from '../../src/pokemon/pokemon.controller';
-import { CreatePokemonDto } from 'src/pokemon/dto';
+import { pokemonData } from '../data';
 
 describe('PokemonController', () => {
   let pokemonController: PokemonController;
@@ -32,11 +32,7 @@ describe('PokemonController', () => {
     it('should create a new Pokemon', async () => {
       jest.spyOn(pokemonService, 'addPokemon').mockResolvedValue(undefined);
 
-      const createPokemonDto = {
-        pokedexNumber: 1,
-        name: 'Bulbasaur',
-      } as CreatePokemonDto;
-      const response = await pokemonController.addPokemon(createPokemonDto);
+      const response = await pokemonController.addPokemon(pokemonData);
 
       // Ensure that the method returns undefined (void)
       expect(response).toBeUndefined();

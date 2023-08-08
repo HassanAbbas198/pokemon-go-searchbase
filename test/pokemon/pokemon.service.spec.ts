@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PokemonService } from '../../src/pokemon/pokemon.service';
 import { PokemonRepository } from '../../src/pokemon/repositories';
-import { CreatePokemonDto } from 'src/pokemon/dto';
+import { pokemonData } from '../data';
 
 describe('PokemonService', () => {
   let pokemonService: PokemonService;
@@ -31,17 +31,10 @@ describe('PokemonService', () => {
 
   describe('createPokemon', () => {
     it('should create a new Pokemon', async () => {
-      const createPokemonDto = {
-        pokedexNumber: 1,
-        name: 'Bulbasaur',
-      };
-
-      await pokemonService.addPokemon(createPokemonDto as CreatePokemonDto);
+      await pokemonService.addPokemon(pokemonData);
 
       expect(pokemonRepository.createPokemon).toHaveBeenCalled();
-      expect(pokemonRepository.createPokemon).toHaveBeenCalledWith(
-        createPokemonDto,
-      );
+      expect(pokemonRepository.createPokemon).toHaveBeenCalledWith(pokemonData);
     });
   });
 });
