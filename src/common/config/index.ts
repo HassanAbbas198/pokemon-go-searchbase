@@ -10,5 +10,7 @@ export default () => ({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     name: process.env.DB_NAME,
+    autoLoadEntities: process.env.DB_AUTO_LOAD_ENTITIES === 'true' || false,
+    synchronize: process.env.DB_SYNCHRONIZE === 'true' || false,
   },
 });

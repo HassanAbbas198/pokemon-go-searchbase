@@ -20,6 +20,8 @@ import { Pokemon } from '../pokemon/entities';
           options: {
             trustServerCertificate: true,
           },
+          autoLoadEntities: configService.get('database.autoLoadEntities'),
+          synchronize: configService.get('database.synchronize'),
         };
       },
     }),
