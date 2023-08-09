@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { BadRequestException } from '@nestjs/common';
 import { PokemonService } from '../../src/pokemon/pokemon.service';
 import { PokemonRepository } from '../../src/pokemon/repositories';
 import { pokemonData } from '../data';
@@ -34,6 +35,24 @@ describe('PokemonService', () => {
       await pokemonService.addPokemon(pokemonData);
 
       expect(pokemonRepository.createPokemon).toHaveBeenCalled();
+      expect(pokemonRepository.createPokemon).toHaveBeenCalledWith(pokemonData);
+    });
+
+    it('should throw BadRequestException when adding a Pokemon that exists', async () => {
+      // Mock the necessary methods
+      jest.spyOn(pokemonRepository, 'checkDuplicate').mockResolvedValue(true);
+      jest.spyOn(pokemonRepository, 'createPokemon').mockImplementation(() => {
+        throw new BadRequestException(
+          'A pokemon with the same Pokedex number or name already exists',
+        );
+      });
+
+      await expect(pokemonService.addPokemon(pokemonData)).rejects.toThrow(
+        new BadRequestException(
+          'A pokemon with the same Pokedex number or name already exists',
+        ),
+      );
+
       expect(pokemonRepository.createPokemon).toHaveBeenCalledWith(pokemonData);
     });
   });
