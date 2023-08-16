@@ -40,3 +40,15 @@ services:
       - ./scripts/init-db.sql:/app/init-db.sql
     depends_on:
       - pokemon-db
+  
+  redis-cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASS} --port ${REDIS_PORT}
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:

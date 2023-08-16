@@ -13,8 +13,8 @@
     "debug": "nest start --debug --watch",
     "prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "docker:init-db": "docker-compose up init-db --build",
-    "docker:dev": "docker-compose up pokemon-service",
+    "docker:init-db": "docker-compose up init-db",
+    "docker:dev": "docker-compose up pokemon-service redis-cache",
     "test": "jest --config ./jest-unit.json",
     "test:e2e": "jest --config ./jest-e2e.json --passWithNoTests"
   },
