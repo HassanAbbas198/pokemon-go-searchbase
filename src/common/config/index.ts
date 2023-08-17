@@ -13,4 +13,9 @@ export default () => ({
     autoLoadEntities: process.env.DB_AUTO_LOAD_ENTITIES === 'true' || false,
     synchronize: process.env.DB_SYNCHRONIZE === 'true' || false,
   },
+  redis: {
+    host: process.env.REDIS_HOST,
+    port: parseInt(process.env.REDIS_PORT),
+    password: process.env.REDIS_PASS,
+  },
 });
