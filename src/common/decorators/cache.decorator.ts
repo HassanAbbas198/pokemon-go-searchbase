@@ -18,7 +18,7 @@ export const getCacheData =
       try {
         if (config.get('CACHE_ENABLED') === 'true') {
           // Access query parameters from the args parameter
-          const query = args[0] as GetPokemonQueryDto;
+          const query = args[0];
           // generate a cache key based on cacheKeyPrefix and query parameters
           const cacheKey = `${cacheKeyPrefix}:${JSON.stringify(query)}`;
 

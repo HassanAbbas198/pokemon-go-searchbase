@@ -1,9 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
 
 @Injectable()
 export class RedisService {
-  constructor(@InjectRedis() private readonly redis: Redis) {}
+  constructor(
+    @InjectRedis() private readonly redis: Redis,
+    private readonly logger: Logger,
+  ) {
+    this.logger = new Logger(RedisService.name);
+  }
 
   /**
    * Store data in Redis with an expiration time.
@@ -32,5 +37,30 @@ export class RedisService {
    */
   async deleteKey(key: string): Promise<void> {
     await this.redis.del(key);
+  }
+
+  /**
+   * Clears cached data by deleting keys that match the specified prefix.
+   * @param {string} keyPrefix - The prefix of keys to delete.
+   * @returns {Promise<void>}
+   */
+  async clearCachedData(keyPrefix: string): Promise<void> {
+    // Create a readable stream using Redis SCAN
+    const stream = this.redis.scanStream({
+      match: `${keyPrefix}*`, // Specify the pattern to match the keys
+    });
+
+    stream.on('data', async (resultKeys: string[]) => {
+      // `resultKeys` is an array of strings representing key names.
+      for (const key of resultKeys) {
+        await this.deleteKey(key);
+      }
+    });
+
+    stream.on('end', () => {
+      this.logger.log(
+        `All keys matching the ${keyPrefix} pattern have been deleted.`,
+      );
+    });
   }
 }

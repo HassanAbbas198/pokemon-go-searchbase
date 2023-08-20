@@ -23,6 +23,8 @@ export class PokemonService {
   ) {}
 
   async addPokemon(data: CreatePokemonDto): Promise<void> {
+    this.redisService.clearCachedData('pokemon-list');
+
     return this.pokemonRepository.createPokemon(data);
   }
 
@@ -45,15 +47,22 @@ export class PokemonService {
     return formatPaginationResponse(result.pokemon, result.total, page, limit);
   }
 
+  @getCacheData('pokemon-details')
   async getPokemonById(id: number): Promise<Pokemon> {
     return this.pokemonRepository.getPokemonById(id);
   }
 
   async updatePokemon(id: number, data: UpdatePokemonDto): Promise<void> {
+    this.redisService.clearCachedData('pokemon-list');
+    this.redisService.deleteKey(`pokemon-details:${id}`);
+
     return this.pokemonRepository.updatePokemon(id, data);
   }
 
   async deletePokemon(id: number): Promise<void> {
+    this.redisService.clearCachedData('pokemon-list');
+    this.redisService.deleteKey(`pokemon-details:${id}`);
+
     return this.pokemonRepository.deletePokemon(id);
   }
 }
