@@ -6,7 +6,7 @@ const logger = new Logger('CacheData');
 const config = new ConfigService();
 
 export const getCacheData =
-  (cacheKeyPrefix: string, expiresIn = 3600) =>
+  (cacheKeyPrefix: string) =>
   (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     // Store the original method implementation
     const originalMethod = descriptor.value;
@@ -30,7 +30,11 @@ export const getCacheData =
 
           // if not found, call the original method and store its response in cache for future use
           const response = await originalMethod.apply(this, args);
-          await this.redisService.storeData(cacheKey, response, expiresIn);
+
+          // read the cache expiration time in seconds from the env
+          const cacheExpiry = +config.get('REDIS_EXPIRES_IN') || 3600;
+
+          await this.redisService.storeData(cacheKey, response, cacheExpiry);
           return response;
         }
 
