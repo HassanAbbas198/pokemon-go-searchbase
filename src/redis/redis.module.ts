@@ -9,9 +9,9 @@ import { RedisModule } from '@nestjs-modules/ioredis';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         config: {
-          host: configService.get<string>('redis.host'),
-          port: configService.get<number>('redis.port'),
-          password: configService.get<string>('redis.password'),
+          host: configService.get('redis.host'),
+          port: configService.get('redis.port'),
+          password: configService.get('redis.password'),
         },
       }),
     }),
