@@ -60,6 +60,13 @@ Follow these steps to set up the project locally:
     # IMPORTANT: The following settings should NOT be enabled in a production environment
     DB_AUTO_LOAD_ENTITIES=true
     DB_SYNCHRONIZE=true
+
+    # Configure Redis connection
+    REDIS_HOST=redis-cache
+    REDIS_PORT=6380
+    REDIS_PASS=
+    REDIS_EXPIRES_IN=3600
+    CACHE_ENABLED=true
     ```
    Make sure **DB_PASSWORD**, and **DB_NAME** you set in the `.env` match the values in `scripts/init-db.sh` and `scripts/init-db.sql` files respectively.
    
